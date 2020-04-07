@@ -1,0 +1,51 @@
+syntax = "proto2";
+package pb;
+
+message iInitAgentREQ
+{
+    optional uint32 handle = 1;
+}
+
+message iAgentInit
+{
+    optional uint64 uid = 1;
+    optional string ip = 2;
+}
+
+message iAgentDisconnect
+{
+    optional uint64 uid = 1;
+}
+
+message iAgentRebind
+{
+    optional uint64 uid = 1;
+    optional string ip = 2;
+}
+
+message iAgentRelease
+{
+    optional uint64 uid = 1;
+}
+
+message iShutdownAgentREQ
+{
+}
+
+message iCheckLoginREQ
+{
+    optional uint64 uid = 1;
+    optional string rdkey = 2;
+    optional string version = 3;
+}
+
+message iCheckLoginRSP
+{
+    optional int32  code = 1;    // -1 rdkey error | -2 version error
+    optional string client_ip = 2;
+}
+
+message iKickUser
+{
+    optional uint64 uid = 1;
+}

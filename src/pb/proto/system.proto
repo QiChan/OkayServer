@@ -1,0 +1,46 @@
+syntax = "proto2";
+package pb;
+
+message iServiceOver
+{
+    optional uint32 handle = 1;
+}
+
+message iRegisterName
+{
+    optional uint32 handle = 1;
+    optional string name = 2;
+    optional bool   expose = 3;
+}
+
+message iRegisterWatchdog
+{
+    optional uint32 handle = 1;
+}
+
+message iRegisterProto
+{
+    optional uint32 type = 1;
+    repeated string proto = 2;
+    optional uint32 handle = 3[default = 0];
+}
+
+message iRegisterMsgService
+{
+    repeated iRegisterProto item = 1;
+}
+
+message ServiceInfo
+{
+    optional uint32 handle = 1;
+    optional string name = 2;
+}
+
+message iNameList
+{
+    repeated ServiceInfo    service_info = 1;
+}
+
+message iServerStop
+{
+}

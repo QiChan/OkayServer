@@ -1,0 +1,20 @@
+syntax = "proto2";
+package pb;
+
+message MonitorInfo
+{
+    optional uint32 handle  = 1;
+    optional uint32 harbor  = 2;
+    optional string name    = 3;
+}
+
+message mServiceREG
+{
+    optional MonitorInfo base = 1;
+}
+
+message mServiceHB
+{
+    optional MonitorInfo base = 1;
+    optional uint32 report_time = 2;
+}

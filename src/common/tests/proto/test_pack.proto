@@ -1,0 +1,9 @@
+syntax = "proto2";
+package pb;
+
+message TestPack
+{
+    optional uint32 uid = 1;
+    optional string name = 2;
+    repeated uint32 items = 3;
+}

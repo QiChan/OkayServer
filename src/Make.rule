@@ -1,0 +1,53 @@
+ROOT_PATH = ${POKER_ROOT}
+
+SKYNET_ROOT = ${ROOT_PATH}/3rd/skynet
+SRC_PATH = ${ROOT_PATH}/src
+OUTPUT_PATH = ${ROOT_PATH}/publish/service
+TESTS_OUTPUT_PATH = ${ROOT_PATH}/tests
+
+$(shell if [ ! -d ${OUTPUT_PATH} ]; then mkdir -p ${OUTPUT_PATH}; fi;)
+$(shell if [ ! -d ${TESTS_OUTPUT_PATH} ]; then mkdir -p ${TESTS_OUTPUT_PATH}; fi;)
+
+ifeq (${BUILD_TYPE}, release)
+    CXXFLAGS += -fPIC -Wall -g -O2 -finline-limit=1000 -fdiagnostics-color=auto -std=c++11 -DNDEBUG
+    CFLAGS += -fPIC -Wall -g -O2 -finline-limit=1000 -fdiagnostics-color=auto -std=c++11 -DNDEBUG
+else
+    CXXFLAGS += -fPIC -Wall -g -O0 -fdiagnostics-color=auto -std=c++11
+    CFLAGS += -fPIC -Wall -g -O0 -fdiagnostics-color=auto -std=c++11
+endif
+
+ifdef profile
+    CXXFLAGS += -pg
+    CFLAGS += -pg
+endif
+
+PB34_DIR = /usr/local/protobuf34
+INCPB34_DIR = ${PB34_DIR}/include
+LIBPB34_DIR = ${PB34_DIR}/lib
+
+LIBMYSQL_DIR = /usr/lib64/mysql
+
+PB_DIR = ${SRC_PATH}/pb
+COMM_DIR = ${SRC_PATH}/common
+JSON_DIR = ${SRC_PATH}/json
+TOOLS_DIR = ${SRC_PATH}/tools
+
+LIBS += -L${COMM_DIR}       \
+        -lcommon            \
+        -L${PB_DIR}         \
+        -lpb                \
+        -lglog              \
+        -lcurl              \
+        -L${LIBPB34_DIR}    \
+        -lprotobuf          \
+        -L${TOOLS_DIR}      \
+        -ltools             \
+        -L${JSON_DIR}       \
+        -ljson              \
+        -lhiredis           \
+        -lpthread 
+
+INC += -I${SKYNET_ROOT}/skynet-src/ \
+       -I${INCPB34_DIR}             \
+       -I${SRC_PATH}                \
+       -I../common/
